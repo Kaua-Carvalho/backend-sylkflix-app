@@ -1,0 +1,39 @@
+# ===============================
+# Build
+# ===============================
+/target/
+*.class
+
+# ===============================
+# IDEs
+# ===============================
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/out/
+
+# VS Code (caso use)
+.vscode/
+
+# Eclipse (caso use)
+.project
+.classpath
+.settings/
+
+# ===============================
+# Logs
+# ===============================
+*.log
+
+# ===============================
+# Arquivos do sistema
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Arquivos de ambiente / secrets locais
+# ===============================
+# Caso use arquivos de configuração local, variáveis de ambiente ou credenciais
+application-local.properties
+.env
