@@ -24,14 +24,12 @@ public class FilmeAssistidoService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // Obter usuário autenticado
     private Usuario getAuthenticatedUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
     }
 
-    // Converter entidade para DTO
     private FilmeAssistidoResponseDTO toResponseDTO(FilmeAssistido filme) {
         return new FilmeAssistidoResponseDTO(
                 filme.getId(),
@@ -47,7 +45,6 @@ public class FilmeAssistidoService {
     public FilmeAssistidoResponseDTO addAssistido(FilmeAssistidoDTO dto) {
         Usuario usuario = getAuthenticatedUser();
 
-        // Verificar se já existe
         if (filmeAssistidoRepository.existsByUsuarioAndTmdbId(usuario, dto.getTmdbId())) {
             throw new RuntimeException("Filme já está nos assistidos!");
         }
@@ -80,7 +77,6 @@ public class FilmeAssistidoService {
         FilmeAssistido filme = filmeAssistidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Filme assistido não encontrado"));
 
-        // Verificar se pertence ao usuário
         if (!filme.getUsuario().getId().equals(usuario.getId())) {
             throw new RuntimeException("Você não tem permissão para atualizar este filme");
         }
@@ -102,7 +98,6 @@ public class FilmeAssistidoService {
         FilmeAssistido filme = filmeAssistidoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Filme assistido não encontrado"));
 
-        // Verificar se pertence ao usuário
         if (!filme.getUsuario().getId().equals(usuario.getId())) {
             throw new RuntimeException("Você não tem permissão para remover este filme");
         }

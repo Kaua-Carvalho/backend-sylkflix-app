@@ -20,23 +20,17 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Permitir origens específicas (localhost + Vercel)
         List<String> origins = Arrays.asList(allowedOrigins.split(","));
         configuration.setAllowedOrigins(origins);
 
-        // Permitir todos os métodos HTTP
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
 
-        // Permitir todos os headers
         configuration.setAllowedHeaders(Arrays.asList("*"));
 
-        // Permitir credenciais
         configuration.setAllowCredentials(true);
 
-        // Expor headers de resposta
         configuration.setExposedHeaders(Arrays.asList("Authorization"));
 
-        // Tempo de cache da configuração CORS
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

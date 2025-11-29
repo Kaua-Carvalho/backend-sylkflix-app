@@ -24,13 +24,11 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private long jwtExpirationMs;
 
-    // Gera a chave secreta a partir da string
     private SecretKey getSigningKey() {
         byte[] keyBytes = jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Gera o token JWT
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Date now = new Date();
@@ -44,7 +42,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // Gera token a partir do email
     public String generateTokenFromEmail(String email) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
@@ -57,7 +54,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // Extrai o email do token
     public String getEmailFromToken(String token) {
         try {
             Claims claims = Jwts.parser()
@@ -73,7 +69,6 @@ public class JwtTokenProvider {
         }
     }
 
-    // Valida o token JWT
     public boolean validateToken(String authToken) {
         try {
             Jwts.parser()

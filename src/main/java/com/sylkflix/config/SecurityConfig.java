@@ -30,7 +30,6 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    // ✅ Injetar o CorsConfigurationSource
     @Autowired
     private CorsConfigurationSource corsConfigurationSource;
 
@@ -70,7 +69,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
 
-                        // Tudo o resto precisa de token
                         .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())

@@ -42,7 +42,6 @@ public class FilmeAssistido {
     @Column(name = "data_adicionado", nullable = false, updatable = false)
     private LocalDateTime dataAdicionado;
 
-    // Construtores
     public FilmeAssistido() {
     }
 
@@ -64,7 +63,6 @@ public class FilmeAssistido {
         this.avaliacao = avaliacao;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

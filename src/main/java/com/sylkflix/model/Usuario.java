@@ -43,7 +43,6 @@ public class Usuario {
     @Column(name = "profile_picture", nullable = false, length = 50)
     private String profilePicture = "Profile0";
 
-    // Construtores
     public Usuario() {
     }
 
@@ -57,7 +56,6 @@ public class Usuario {
         this.profilePicture = profilePicture;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

@@ -13,8 +13,8 @@ public class SylkflixApplication {
         SpringApplication.run(SylkflixApplication.class, args);
         System.out.println("\n===========================================");
         System.out.println("🎬 SylkFlix API está rodando!");
-        System.out.println("📚 Swagger UI: http://localhost:8080/swagger-ui.html");
-        System.out.println("📖 API Docs: http://localhost:8080/api-docs");
+        System.out.println("📚 Swagger UI: https://backend-sylkflix-app.onrender.com/swagger-ui.html");
+        System.out.println("📖 API Docs: https://backend-sylkflix-app.onrender.com/api-docs");
         System.out.println("===========================================\n");
     }
 }

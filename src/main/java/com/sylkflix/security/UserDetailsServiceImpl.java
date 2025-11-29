@@ -38,7 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .build();
     }
 
-    // Método auxiliar para carregar usuário por ID
     @Transactional
     public UserDetails loadUserById(Long id) {
         Usuario usuario = usuarioRepository.findById(id)

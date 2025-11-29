@@ -104,7 +104,6 @@ public class AuthController {
         }
     }
 
-    // Tratamento de erros de validação
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(

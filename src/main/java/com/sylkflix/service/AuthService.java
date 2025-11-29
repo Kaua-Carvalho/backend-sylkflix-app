@@ -32,12 +32,10 @@ public class AuthService {
 
     @Transactional
     public AuthResponseDTO register(RegisterRequestDTO registerDTO) {
-        // ✅ Verificar se email já existe
         if (usuarioRepository.existsByEmail(registerDTO.getEmail())) {
             throw new RuntimeException("Este email já está cadastrado!");
         }
 
-        // Criar novo usuário
         Usuario usuario = new Usuario();
         usuario.setNome(registerDTO.getNome());
         usuario.setEmail(registerDTO.getEmail());
@@ -45,7 +43,6 @@ public class AuthService {
 
         Usuario savedUsuario = usuarioRepository.save(usuario);
 
-        // Gerar token JWT
         String token = tokenProvider.generateTokenFromEmail(savedUsuario.getEmail());
 
         return new AuthResponseDTO(
@@ -58,7 +55,6 @@ public class AuthService {
     }
 
     public AuthResponseDTO login(AuthRequestDTO loginDTO) {
-        // Autenticar usuário
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDTO.getEmail(),
@@ -68,10 +64,8 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Gerar token JWT
         String token = tokenProvider.generateToken(authentication);
 
-        // Buscar dados do usuário
         Usuario usuario = usuarioRepository.findByEmail(loginDTO.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
@@ -84,7 +78,6 @@ public class AuthService {
         );
     }
 
-    // ✅ NOVO: Atualizar nome do usuário
     @Transactional
     public AuthResponseDTO updateNome(String novoNome) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -102,7 +95,6 @@ public class AuthService {
         usuario.setNome(novoNome.trim());
         Usuario updatedUsuario = usuarioRepository.save(usuario);
 
-        // Gerar novo token com informações atualizadas
         String token = tokenProvider.generateTokenFromEmail(updatedUsuario.getEmail());
 
         return new AuthResponseDTO(
@@ -134,14 +126,12 @@ public class AuthService {
         );
     }
 
-    // ✅ NOVO: Deletar conta (cascata automática deleta assistidos)
     @Transactional
     public void deleteAccount() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        // O CascadeType.ALL na entidade Usuario vai deletar os assistidos automaticamente
         usuarioRepository.delete(usuario);
     }
 }
